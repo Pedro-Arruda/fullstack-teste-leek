@@ -26,7 +26,7 @@ export class SignUpController {
   @ApiTags("Auth")
   @ApiOperation({ summary: "Register a new user" })
   @Post("/sign-up")
-  @HttpCode(201)
+  @HttpCode(200)
   @ZodSchemaPipe({
     body: userControllerBodySchema,
   })

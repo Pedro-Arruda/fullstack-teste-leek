@@ -34,7 +34,7 @@ export class SignInController {
   @ApiTags("Auth")
   @ApiOperation({ summary: "Login with an already existing user" })
   @Post("/sign-in")
-  @HttpCode(201)
+  @HttpCode(200)
   @ZodSchemaPipe({
     body: UserControllerBodySchema,
     response: userControllerResponseSchema,
