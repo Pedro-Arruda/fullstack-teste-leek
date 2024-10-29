@@ -7,6 +7,7 @@ config({ override: true });
 const schema = z.object({
   API_NAME: z.string().default(packageJson.name),
   API_PORT: z.coerce.number().default(3333),
+  JWT_SECRET: z.string(),
 });
 
 const parsedEnv = schema.safeParse(process.env);
