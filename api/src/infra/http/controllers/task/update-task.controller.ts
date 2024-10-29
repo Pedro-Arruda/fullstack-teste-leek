@@ -1,3 +1,4 @@
+import { JwtAuthGuard } from "@/core/jwt-guard";
 import { PrismaService } from "@/database/prisma.service";
 import {
   Body,
@@ -6,8 +7,9 @@ import {
   InternalServerErrorException,
   Param,
   Patch,
+  UseGuards,
 } from "@nestjs/common";
-import { ApiOperation, ApiTags } from "@nestjs/swagger";
+import { ApiBearerAuth, ApiOperation, ApiTags } from "@nestjs/swagger";
 import { z } from "zod";
 import { ZodSchemaPipe } from "../../middlewares/zod-schema-pipe";
 
@@ -30,6 +32,8 @@ type TaskControllerParam = z.infer<typeof taskControllerParamSchema>;
 @Controller()
 export class UpdateTaskController {
   constructor(private prisma: PrismaService) {}
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @ApiTags("Task")
   @ApiOperation({ summary: "Update a already existing task" })
   @Patch("/task/:id")

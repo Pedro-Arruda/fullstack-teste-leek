@@ -1,3 +1,4 @@
+import { JwtAuthGuard } from "@/core/jwt-guard";
 import { PrismaService } from "@/database/prisma.service";
 import {
   Controller,
@@ -6,8 +7,9 @@ import {
   InternalServerErrorException,
   NotFoundException,
   Param,
+  UseGuards,
 } from "@nestjs/common";
-import { ApiOperation, ApiTags } from "@nestjs/swagger";
+import { ApiBearerAuth, ApiOperation, ApiTags } from "@nestjs/swagger";
 import { z } from "zod";
 import { ZodSchemaPipe } from "../../middlewares/zod-schema-pipe";
 
@@ -30,7 +32,8 @@ type TaskControllerParam = z.infer<typeof taskControllerParamSchema>;
 @Controller()
 export class DeleteTaskController {
   constructor(private prisma: PrismaService) {}
-
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @ApiTags("Task")
   @ApiOperation({ summary: "Delete a task" })
   @Delete("/task/:id")

@@ -23,6 +23,7 @@ import { env } from "./env";
     .setTitle(env.API_NAME)
     .setDescription("")
     .setVersion(packageJson.version)
+    .addBearerAuth()
     .build();
   const swaggerDocument = SwaggerModule.createDocument(
     app,

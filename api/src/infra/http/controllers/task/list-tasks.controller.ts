@@ -1,11 +1,15 @@
+import { JwtAuthGuard } from "@/core/jwt-guard";
 import { PrismaService } from "@/database/prisma.service";
 import {
   Controller,
   Get,
   HttpCode,
   InternalServerErrorException,
+  Request,
+  UseGuards,
 } from "@nestjs/common";
-import { ApiOperation, ApiTags } from "@nestjs/swagger";
+import { ApiBearerAuth, ApiOperation, ApiTags } from "@nestjs/swagger";
+import { FastifyRequest } from "fastify";
 import { z } from "zod";
 import { ZodSchemaPipe } from "../../middlewares/zod-schema-pipe";
 
@@ -23,16 +27,25 @@ type TaskControllerResponse = z.infer<typeof taskControllerResponseSchema>;
 @Controller()
 export class ListTasksController {
   constructor(private prisma: PrismaService) {}
+
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @ApiTags("Task")
-  @ApiOperation({ summary: "List all the tasks" })
+  @ApiOperation({ summary: "List all the tasks related to the user" })
   @Get("/task")
   @HttpCode(200)
   @ZodSchemaPipe({
     response: z.array(taskControllerResponseSchema),
   })
-  async handle(): Promise<TaskControllerResponse[]> {
+  async handle(
+    @Request() req: FastifyRequest,
+  ): Promise<TaskControllerResponse[]> {
     try {
-      const tasks = await this.prisma.task.findMany();
+      const user = req.user;
+
+      const tasks = await this.prisma.task.findMany({
+        where: { userId: user.userId },
+      });
 
       return tasks;
     } catch (error) {
