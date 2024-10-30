@@ -1,0 +1,15 @@
+.env.example
+.gitignore
+.husky
+.vscode
+.next
+.eslintignore
+.eslintrc.json
+.lintstagedrc.json
+.npmrc
+.prettierignore
+.prettierrc.json
+docker-compose.yml
+Dockerfile
+node_modules
+dist
