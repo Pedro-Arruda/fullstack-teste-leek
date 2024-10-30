@@ -1,6 +1,8 @@
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
 export const listTasks = async (token?: string) => {
   try {
-    const response = await fetch("http://localhost:3333/task", {
+    const response = await fetch(`${apiUrl}/task`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

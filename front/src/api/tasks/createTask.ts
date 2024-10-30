@@ -1,11 +1,13 @@
 import { successToast } from "@/app/components/toast";
 import { FieldsTask } from "@/app/types/task";
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
 export const createTask = async (fields: FieldsTask, token?: string) => {
   const { description, finishedAt, status, title } = fields;
 
   try {
-    await fetch("http://localhost:3333/task", {
+    await fetch(`${apiUrl}/task`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

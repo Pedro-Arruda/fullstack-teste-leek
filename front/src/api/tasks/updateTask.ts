@@ -1,6 +1,8 @@
 import { successToast } from "@/app/components/toast";
 import { FieldsTask } from "@/app/types/task";
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
 export const updateTask = async (
   fields: FieldsTask,
   token?: string,
@@ -9,7 +11,7 @@ export const updateTask = async (
   const { description, finishedAt, status, title } = fields;
 
   try {
-    await fetch(`http://localhost:3333/task/${taskId}`, {
+    await fetch(`${apiUrl}/task/${taskId}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -17,7 +19,7 @@ export const updateTask = async (
       },
       body: JSON.stringify({
         description,
-        finishedAt: new Date(finishedAt).toISOString(),
+        ...(finishedAt && { finishedAt: new Date(finishedAt).toISOString() }),
         status,
         title,
       }),

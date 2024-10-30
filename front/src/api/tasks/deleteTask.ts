@@ -1,8 +1,10 @@
 import { successToast } from "@/app/components/toast";
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
 export const deleteTask = async (token?: string, taskId?: string) => {
   try {
-    await fetch(`http://localhost:3333/task/${taskId}`, {
+    await fetch(`${apiUrl}/task/task/${taskId}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
