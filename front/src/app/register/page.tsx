@@ -1,4 +1,5 @@
 "use client";
+import { createAccount } from "@/api/auth/createAccount";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -22,17 +23,7 @@ const Register = () => {
     setError(null);
 
     try {
-      const response = await fetch(`${apiUrl}/sign-up`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password, name }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Falha ao registrar");
-      }
+      await createAccount({ email, name, password });
 
       successToast("Usuário registrado com sucesso.");
 

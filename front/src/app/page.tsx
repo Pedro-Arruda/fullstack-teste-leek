@@ -1,14 +1,13 @@
 "use client";
+import { signIn } from "@/api/auth/signIn";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Input from "./components/input";
 import Label from "./components/label";
-import { errorToast, successToast } from "./components/toast";
+import { successToast } from "./components/toast";
 import { useAuth } from "./context/AuthContext";
-
-const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 const Login = () => {
   const { updateAuth } = useAuth();
@@ -21,29 +20,15 @@ const Login = () => {
     event.preventDefault();
     setLoading(true);
 
-    try {
-      const response = await fetch(`${apiUrl}/sign-in`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
+    const data = await signIn({ email, password });
 
-      if (!response.ok) throw new Error("Falha ao fazer login");
-
-      const data = await response.json();
-      if (data) {
-        updateAuth({ token: data.token });
-        router.push("/home");
-        successToast("Usuário logado com sucesso.");
-      }
-    } catch (err: any) {
-      errorToast(err.message);
-      console.error("Erro ao fazer login:", err);
-    } finally {
-      setLoading(false);
+    if (data) {
+      updateAuth({ token: data.token });
+      router.push("/home");
+      successToast("Usuário logado com sucesso.");
     }
+
+    setLoading(false);
   };
 
   return (
