@@ -30,7 +30,7 @@ export const ModalEditTask = ({
         title: task.title || "",
         description: task.description || "",
         finishedAt: task.finishedAt ? task.finishedAt.slice(0, 10) : "",
-        status: task.status,
+        status: task.status.toLowerCase(),
       });
     }
   }, [task, setFields]);

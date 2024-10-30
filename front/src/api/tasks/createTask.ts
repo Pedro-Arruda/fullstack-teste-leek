@@ -1,3 +1,4 @@
+import { successToast } from "@/app/components/toast";
 import { FieldsTask } from "@/app/types/task";
 
 export const createTask = async (fields: FieldsTask, token?: string) => {
@@ -17,6 +18,8 @@ export const createTask = async (fields: FieldsTask, token?: string) => {
         title,
       }),
     });
+
+    successToast("Task criada com sucesso.");
   } catch (error) {
     console.error("Erro na requisição:", error);
   }

@@ -21,6 +21,7 @@ export const updateTask = async (
         title,
       }),
     });
+    successToast("Task alterada com sucesso.");
   } catch (error) {
     console.error("Erro na requisição:", error);
   }

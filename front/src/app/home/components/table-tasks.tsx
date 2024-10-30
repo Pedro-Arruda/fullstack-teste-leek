@@ -1,3 +1,5 @@
+import { StatusBadget } from "@/app/components/statusBadget";
+import { StatusLabel } from "@/app/components/statusLabel";
 import { Task } from "@/app/types/task";
 import { formatDate } from "@/app/utils/formatDate";
 import { formatDateTime } from "@/app/utils/formatDateTime";
@@ -46,20 +48,9 @@ export const TableTasks = ({
             <tr key={index} className="border-b border-gray-600">
               <td className="py-4 px-6 text-center">{task.title}</td>
               <td className="py-4 px-6 text-center">{task.description}</td>
-              <td className="py-4 px-6 text-center font-bold">
-                <span
-                  className={`px-3 py-1 text-sm font-medium rounded-full ${
-                    task.status === "PENDENTE"
-                      ? "bg-yellow-100 text-yellow-700"
-                      : task.status === "CONCLUIDA"
-                      ? "bg-green-100 text-green-700"
-                      : "bg-blue-100 text-blue-700"
-                  }`}
-                >
-                  <span className="font-semibold">
-                    {task.status.replaceAll("_", " ")}
-                  </span>
-                </span>
+              <td className="py-4 px-6 font-bold flex items-center justify-center gap-3">
+                <StatusBadget status={task.status} />
+                <StatusLabel status={task.status} />
               </td>
               <td className="py-4 px-6 border-b border-gray-600 text-center">
                 {task.finishedAt
