@@ -4,7 +4,7 @@ const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 export const deleteTask = async (token?: string, taskId?: string) => {
   try {
-    await fetch(`${apiUrl}/task/task/${taskId}`, {
+    await fetch(`${apiUrl}/task/${taskId}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
