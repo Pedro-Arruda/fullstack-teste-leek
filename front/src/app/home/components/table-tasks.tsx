@@ -1,3 +1,5 @@
+import { Task } from "@/app/types/task";
+import { formatDate } from "@/app/utils/formatDate";
 import { formatDateTime } from "@/app/utils/formatDateTime";
 import { Pencil, Trash } from "lucide-react";
 
@@ -29,6 +31,9 @@ export const TableTasks = ({
               Status
             </th>
             <th className="py-3 px-6font-semibold text-sm uppercase ">
+              Data da conclusão
+            </th>
+            <th className="py-3 px-6font-semibold text-sm uppercase ">
               Data da criação
             </th>
             <th className="py-3 px-6font-semibold text-sm uppercase ">
@@ -55,6 +60,11 @@ export const TableTasks = ({
                     {task.status.replaceAll("_", " ")}
                   </span>
                 </span>
+              </td>
+              <td className="py-4 px-6 border-b border-gray-600 text-center">
+                {task.finishedAt
+                  ? formatDate(task.finishedAt)
+                  : "Não concluído"}
               </td>
               <td className="py-4 px-6 border-b border-gray-600 text-center">
                 {formatDateTime(task.createdAt)}

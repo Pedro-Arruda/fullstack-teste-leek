@@ -1,4 +1,5 @@
 "use client";
+import { createTask } from "@/api/tasks/createTask";
 import { Plus } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Button } from "../components/button";
@@ -6,6 +7,7 @@ import { ModalAddTask } from "../components/modal-add-task";
 import { ModalDeleteTask } from "../components/modal-delete-task";
 import { ModalEditTask } from "../components/modal-edit-task";
 import { useAuth } from "../context/AuthContext";
+import { Task } from "../types/task";
 import { TableTasks } from "./components/table-tasks";
 
 const Home = () => {
@@ -22,7 +24,7 @@ const Home = () => {
     title: "",
     description: "",
     status: "pendente",
-    finishedAt: new Date().toISOString().substring(10),
+    finishedAt: "",
   });
 
   const fetchTasks = async () => {
@@ -46,33 +48,16 @@ const Home = () => {
   }, [auth]);
 
   const handleSubmit = async () => {
-    const { description, finishedAt, status, title } = fields;
-    try {
-      await fetch("http://localhost:3333/task", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${auth}`,
-        },
-        body: JSON.stringify({
-          description,
-          finishedAt: new Date(finishedAt).toISOString(),
-          status,
-          title,
-        }),
-      });
+    await createTask(fields, auth?.token);
 
-      setIsOpenAddModal(false);
-      setFields({
-        title: "",
-        description: "",
-        status: "pendente",
-        finishedAt: new Date().toISOString().substring(10),
-      });
-      fetchTasks();
-    } catch (error) {
-      console.error("Erro na requisição:", error);
-    }
+    setIsOpenAddModal(false);
+    setFields({
+      title: "",
+      description: "",
+      status: "pendente",
+      finishedAt: new Date().toISOString().substring(10),
+    });
+    fetchTasks();
   };
 
   const handleEdit = async () => {

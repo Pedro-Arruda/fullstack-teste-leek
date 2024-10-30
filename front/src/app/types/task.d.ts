@@ -1,4 +1,4 @@
-interface Task {
+export interface Task {
   id: string;
   title: string;
   description: string;
@@ -6,4 +6,11 @@ interface Task {
   createdAt: string;
   finishedAt: string;
   userId: string;
+}
+
+export interface FieldsTask {
+  title: string;
+  description: string;
+  status: string;
+  finishedAt: string;
 }

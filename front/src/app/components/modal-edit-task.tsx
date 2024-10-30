@@ -1,7 +1,7 @@
 "use client";
 import { Check, X } from "lucide-react";
 import { useEffect } from "react";
-import { FieldsTask } from "../home/types";
+import { FieldsTask, Task } from "../types/task";
 import { Button } from "./button";
 import Input from "./input";
 import Label from "./label";
@@ -27,9 +27,9 @@ export const ModalEditTask = ({
   useEffect(() => {
     if (task) {
       setFields({
-        title: task.title,
-        description: task.description,
-        finishedAt: task.finishedAt,
+        title: task.title || "",
+        description: task.description || "",
+        finishedAt: task.finishedAt ? task.finishedAt.slice(0, 10) : "",
         status: task.status,
       });
     }
@@ -84,9 +84,9 @@ export const ModalEditTask = ({
             value={fields.status}
             onChange={(e) => setFields({ ...fields, status: e.target.value })}
             options={[
-              { value: "pendente", label: "Pendente" },
-              { value: "concluida", label: "Concluída" },
-              { value: "em_progresso", label: "Em Progresso" },
+              { label: "Pendente", value: "pendente" },
+              { label: "Concluída", value: "concluida" },
+              { label: "Em Progresso", value: "em_progresso" },
             ]}
           />
 
