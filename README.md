@@ -1,74 +1,92 @@
-# Teste Leek Soluções: Vaga Desenvolvedor Fullstack Pleno
+## Instruções para Rodar o Projeto
 
-Segue abaixo as instruções para a execução do teste.
+### 1. Configurar o Back-end (Nest.js)
 
----
+Navegue até a pasta `api`:
 
-### Instruções
+```bash
+cd api
+```
 
-1. **Faça um fork desse projeto** para a sua conta pessoal do GitHub.
-2. **Desenvolva a aplicação** conforme as Especificações Técnicas abaixo.
-3. **Crie um README** com as instruções para compilar, testar e rodar o projeto.
-4. O link do repositório deverá ser enviado para o e-mail **gabriel@leeksolucoes.com.br** e **marcos.bresolin@leeksolucoes.com.br** com o título **Teste Vaga Fullstack Pleno**.
+Preencha o arquivo .env com as seguintes variáveis:
 
----
+```bash
+POSTGRES_USER=
+POSTGRES_PASSWORD=
+POSTGRES_DB=
+POSTGRES_PORT=
+DATABASE_URL=
+JWT_SECRET=
+```
 
-### Especificações Técnicas
+Para rodar o PostgreSQL, execute o Docker Compose:
 
-#### Funcionalidades
+```bash
+docker compose up -d
+```
 
-1. **Autenticação de Usuário**
+Ou conecte ao postgres de outra forma, se preferir.
 
-   - Permitir que o usuário se registre e faça login usando autenticação JWT.
-   - Proteger rotas para que apenas usuários autenticados possam acessar a aplicação.
+Em seguida, instale as dependências do back-end.
 
-2. **CRUD de Tarefas**
+```bash
+npm install
+```
 
-   - O usuário autenticado deve poder criar, visualizar, atualizar e excluir tarefas.
-   - Cada tarefa deve ter:
-     - Título
-     - Descrição
-     - Status (ex.: "pendente", "em progresso", "concluída")
-     - Datas de criação e conclusão (opcional)
+ou
 
-3. **Interface de Usuário**
-   - Criar uma interface com:
-     - Tela de login e registro
-     - Tela de listagem e gerenciamento de tarefas
-     - Modal de confirmação para remoção de tarefa
-   - Aplicar um design básico e responsivo
+```bash
+yarn install
+```
 
-#### Requisitos Técnicos
+Agora, inicie a API :
 
-1. **Front-end**: Desenvolver em **Next.js**.
-   - Implementar rotas protegidas e controle de autenticação.
-   - Estilizar com CSS ou qualquer pré-processador.
-2. **Back-end**: Desenvolver em **NestJS**.
-   - Implementar rotas REST para gerenciar as tarefas e autenticação.
-   - Utilizar **Prisma** ou **TypeORM** para gerenciar o banco de dados relacional.
-3. **Banco de Dados**
-   - Configurar um banco de dados relacional **PostgreSQL**.
-4. **Validação e Boas Práticas**
-   - Implementar validação dos dados (como uso de class-validator para validações no NestJS).
-   - Proteger rotas de back-end usando middlewares de autenticação.
+```bash
+npm run start:dev
+```
 
----
+ou
 
-### Pontos Extras
+```bash
+yarn start:dev
+```
 
-- Dockerização.
-- Criar uma documentação da api com **Swagger**.
+### 1. Configurar o Front-end (Next.js)
 
----
+```bash
+cd ../front
+```
 
-### O que avaliaremos em seu teste
+Preencha o arquivo .env com a seguinte variável:
 
-1. **Organização do Projeto**
-2. **Qualidade e Estrutura do Código**
-3. **Componentização e Lógica**
-4. **Alcance dos Objetivos Propostos**
-5. **Atenção aos Detalhes e Boas Práticas**
+```bash
+NEXT_PUBLIC_API_URL=
+```
 
----
+Instale as dependências do front-end:
 
-Boa sorte! 😉
+```bash
+npm install
+```
+
+ou
+
+```bash
+yarn install
+```
+
+Agora, inicie o servidor do Next.js:
+
+```bash
+npm install
+```
+
+ou
+
+```bash
+yarn install
+```
+
+Após seguir todas as instruções, você pode acessar em:
+
+http://localhost:3000
