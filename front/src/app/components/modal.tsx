@@ -12,7 +12,7 @@ export const Modal = ({ onClose, header, children }: ModalProps) => {
     <>
       <div className="overlay px-7" onClick={() => onClose()}>
         <div
-          className="bg-neutral-800  rounded-md w-[700px] p-7 py-8 flex flex-col gap-5"
+          className="bg-gray-800  rounded-md w-[700px] p-7 py-8 flex flex-col gap-5"
           onClick={(e) => e.stopPropagation()}
         >
           {header}

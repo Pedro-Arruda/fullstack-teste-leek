@@ -3,7 +3,11 @@ import { Check, X } from "lucide-react";
 import { useEffect } from "react";
 import { FieldsTask } from "../home/types";
 import { Button } from "./button";
+import Input from "./input";
+import Label from "./label";
 import { Modal } from "./modal";
+import Select from "./select";
+import TextArea from "./textarea";
 
 interface IModalEditTask {
   fields: FieldsTask;
@@ -29,20 +33,18 @@ export const ModalEditTask = ({
         status: task.status,
       });
     }
-  }, []);
+  }, [task, setFields]);
 
   return (
     <Modal
       onClose={() => setIsOpenModal(false)}
       header={
         <div className="flex flex-wrap gap-3 justify-between items-center">
-          <p>
-            <X
-              size={24}
-              onClick={() => setIsOpenModal(false)}
-              className="cursor-pointer"
-            />
-          </p>
+          <X
+            size={24}
+            onClick={() => setIsOpenModal(false)}
+            className="cursor-pointer"
+          />
           <p className="text-xl font-semibold">Editar tarefa</p>
           <Button
             onClick={() => handleSubmit()}
@@ -56,51 +58,40 @@ export const ModalEditTask = ({
     >
       <form onSubmit={(e) => e.preventDefault()}>
         <div className="flex flex-col gap-3">
-          <label className="block text-sm font-medium  dark:text-white">
-            Título
-          </label>
-          <input
-            type="text"
+          <Label text="Título" />
+          <Input
             name="title"
             value={fields.title}
             onChange={(e) => setFields({ ...fields, title: e.target.value })}
-            className="border rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-neutral-700 border-neutral-600 placeholder-neutral-400 text-white"
             placeholder="Título da tarefa"
             required
           />
 
-          <label className="block text-sm font-medium text-neutral-900 dark:text-white">
-            Descrição
-          </label>
-          <textarea
+          <Label text="Descrição" />
+          <TextArea
             name="description"
             value={fields.description}
             onChange={(e) =>
               setFields({ ...fields, description: e.target.value })
             }
-            className="border rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-neutral-700 border-neutral-600 placeholder-neutral-400 text-white"
             placeholder="Descrição da tarefa"
             required
           />
 
-          <label className="block text-sm font-medium text-neutral-900 dark:text-white">
-            Status
-          </label>
-          <select
+          <Label text="Status" />
+          <Select
             name="status"
             value={fields.status}
             onChange={(e) => setFields({ ...fields, status: e.target.value })}
-            className="border rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-neutral-700 border-neutral-600 placeholder-neutral-400 text-white"
-          >
-            <option value="pendente">Pendente</option>
-            <option value="concluida">Concluída</option>
-            <option value="em_progresso">Em Progresso</option>
-          </select>
+            options={[
+              { value: "pendente", label: "Pendente" },
+              { value: "concluida", label: "Concluída" },
+              { value: "em_progresso", label: "Em Progresso" },
+            ]}
+          />
 
-          <label className="block text-sm font-medium text-neutral-900 dark:text-white">
-            Data de Conclusão
-          </label>
-          <input
+          <Label text="Data de Conclusão" />
+          <Input
             type="date"
             name="finishedAt"
             value={fields.finishedAt}
@@ -110,7 +101,6 @@ export const ModalEditTask = ({
                 finishedAt: e.target.value,
               })
             }
-            className="border rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-neutral-700 border-neutral-600 placeholder-neutral-400 text-white"
             required
           />
         </div>

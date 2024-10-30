@@ -25,7 +25,7 @@ export const ModalDeleteTask = ({
     >
       <div className="flex gap-5">
         <Button
-          className="w-full bg-transparent border-2 border-neutral-600 hover:bg-neutral-600"
+          className="w-full bg-transparent border-2 border-neutral-600 hover:bg-gray-600"
           onClick={() => setIsOpenModal(false)}
         >
           Cancelar
