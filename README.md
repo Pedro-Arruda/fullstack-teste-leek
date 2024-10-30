@@ -51,7 +51,7 @@ ou
 yarn start:dev
 ```
 
-### 1. Configurar o Front-end (Next.js)
+### 2. Configurar o Front-end (Next.js)
 
 ```bash
 cd ../front
