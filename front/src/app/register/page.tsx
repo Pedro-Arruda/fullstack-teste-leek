@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Input from "../components/input";
 import Label from "../components/label";
+import { successToast } from "../components/toast";
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -30,6 +31,8 @@ const Register = () => {
       if (!response.ok) {
         throw new Error("Falha ao registrar");
       }
+
+      successToast("Usuário registrado com sucesso.");
 
       router.push("/");
     } catch (err: any) {

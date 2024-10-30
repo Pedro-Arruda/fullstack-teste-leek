@@ -6,6 +6,7 @@ import { updateTask } from "@/api/tasks/updateTask";
 import { Plus } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Button } from "../components/button";
+import withAuth from "../components/withAuth";
 import { useAuth } from "../context/AuthContext";
 import { Task } from "../types/task";
 import { ModalAddTask } from "./components/modal-add-task";
@@ -118,4 +119,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default withAuth(Home);
