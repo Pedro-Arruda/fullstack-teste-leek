@@ -31,7 +31,7 @@ const Login = () => {
 
       const data = await response.json();
       if (data) {
-        updateAuth(data.token);
+        updateAuth({ token: data.token });
         router.push("/home");
       }
     } catch (err: any) {

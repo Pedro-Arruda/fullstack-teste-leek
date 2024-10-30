@@ -9,13 +9,13 @@ import {
 
 export const LOCAL_STORAGE_AUTH_KEY = "auth";
 
-export interface IAuth {
+export interface Auth {
   token: string;
 }
 
 export interface AuthContextData {
-  auth: IAuth | null;
-  updateAuth: (auth: IAuth | null) => void;
+  auth: Auth | null;
+  updateAuth: (auth: Auth | null) => void;
 }
 
 export const AuthContext = createContext<AuthContextData>({
@@ -24,9 +24,9 @@ export const AuthContext = createContext<AuthContextData>({
 });
 
 export const AuthContextProvider = ({ children }: PropsWithChildren<{}>) => {
-  const [auth, setAuth] = useState<IAuth | null>(null);
+  const [auth, setAuth] = useState<Auth | null>(null);
 
-  const updateAuth = async (auth: IAuth | null) => {
+  const updateAuth = async (auth: Auth | null) => {
     if (!auth) {
       localStorage.removeItem(LOCAL_STORAGE_AUTH_KEY);
     } else {
@@ -50,7 +50,7 @@ export const AuthContextProvider = ({ children }: PropsWithChildren<{}>) => {
       }
 
       try {
-        const value: IAuth = JSON.parse(authStr);
+        const value: Auth = JSON.parse(authStr);
 
         if (value) {
           updateAuth(value);
