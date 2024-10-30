@@ -8,7 +8,7 @@ import {
   Post,
 } from "@nestjs/common";
 import { ApiOperation, ApiTags } from "@nestjs/swagger";
-import * as bcrypt from "bcrypt";
+import { hash } from "bcryptjs";
 import { z } from "zod";
 import { ZodSchemaPipe } from "../../middlewares/zod-schema-pipe";
 
@@ -39,7 +39,7 @@ export class SignUpController {
 
     if (existingUser) throw new ConflictException("Email already in use.");
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await hash(password, 10);
 
     try {
       await this.prisma.user.create({

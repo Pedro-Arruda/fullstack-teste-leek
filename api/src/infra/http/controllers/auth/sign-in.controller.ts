@@ -7,7 +7,7 @@ import {
   UnauthorizedException,
 } from "@nestjs/common";
 import { ApiOperation, ApiTags } from "@nestjs/swagger";
-import * as bcrypt from "bcrypt";
+import { compare } from "bcryptjs";
 import * as jwt from "jsonwebtoken";
 import { z } from "zod";
 import { env } from "../../../env";
@@ -50,7 +50,7 @@ export class SignInController {
 
     if (!user) throw new UnauthorizedException("Invalid email or password.");
 
-    const isPasswordValid = await bcrypt.compare(password, user.password);
+    const isPasswordValid = await compare(password, user.password);
 
     if (!isPasswordValid) {
       throw new UnauthorizedException("Invalid email or password.");
