@@ -1,92 +1,29 @@
-## Instruções para Rodar o Projeto
+# Fullstack Test Leek Soluções
 
-### 1. Configurar o Back-end (Nest.js)
+## Rode localmente
 
-Navegue até a pasta `api`:
+### Dependências globais
 
-```bash
-cd api
-```
+Você precisa ter uma principal dependência instalada:
 
-Preencha o arquivo .env com as seguintes variáveis:
+- [Docker](https://www.docker.com/products/docker-desktop/) 24.0.6 (ou qualquer versão superior)
 
-```bash
-POSTGRES_USER=
-POSTGRES_PASSWORD=
-POSTGRES_DB=
-POSTGRES_PORT=
-DATABASE_URL=
-JWT_SECRET=
-```
-
-Para rodar o PostgreSQL, execute o Docker Compose:
+### Clone o projeto
 
 ```bash
-docker compose up -d
+git clone https://github.com/Pedro-Arruda/fullstack-teste-leek.git
 ```
 
-Ou conecte ao postgres de outra forma, se preferir.
-
-Em seguida, instale as dependências do back-end.
+Rode os serviços no docker:
 
 ```bash
-npm install
+docker compose --env-file ./api/.env up -d --build
 ```
 
-ou
+Se tudo estiver funcionando, você conseguirá acessar em:
 
-```bash
-yarn install
-```
+[http://localhost:3300/docs](http://localhost:3300/docs) (API)
 
-Agora, inicie a API :
+[http://localhost:3000](http://localhost:3000) (Front)
 
-```bash
-npm run start:dev
-```
-
-ou
-
-```bash
-yarn start:dev
-```
-
-### 2. Configurar o Front-end (Next.js)
-
-```bash
-cd ../front
-```
-
-Preencha o arquivo .env com a seguinte variável:
-
-```bash
-NEXT_PUBLIC_API_URL=
-```
-
-Instale as dependências do front-end:
-
-```bash
-npm install
-```
-
-ou
-
-```bash
-yarn install
-```
-
-Agora, inicie o servidor do Next.js:
-
-```bash
-npm install
-```
-
-ou
-
-```bash
-yarn install
-```
-
-Após seguir todas as instruções, você pode acessar em:
-
-http://localhost:3000
+_OBS_: Se você já subiu serviços do Docker na sua máquina, talvez seja necessário trocar os endereços e portas que estão sendo mapeados. Você pode alterar as variáveis no arquivo .env localizado na raiz do front-end e da API, e deve subir os serviços novamente para aplicar as alterações.
