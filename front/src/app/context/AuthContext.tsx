@@ -1,38 +1,86 @@
 "use client";
-import React, { createContext, ReactNode, useContext, useState } from "react";
+import {
+  createContext,
+  PropsWithChildren,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 
-interface AuthContextType {
-  token: string | null;
-  updateAuth: (token: string | null) => void;
+export const LOCAL_STORAGE_AUTH_KEY = "auth";
+
+export interface IAuth {
+  token: string;
 }
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
+export interface AuthContextData {
+  auth: IAuth | null;
+  updateAuth: (auth: IAuth | null) => void;
+}
 
-export const AuthProvider: React.FC<{ children: ReactNode }> = ({
-  children,
-}) => {
-  const [token, setToken] = useState<string | null>(null);
+export const AuthContext = createContext<AuthContextData>({
+  auth: null,
+  updateAuth: () => {},
+});
 
-  const updateAuth = (newToken: string | null) => {
-    setToken(newToken);
-    if (newToken) {
-      localStorage.setItem("token", newToken);
+export const AuthContextProvider = ({ children }: PropsWithChildren<{}>) => {
+  const [auth, setAuth] = useState<IAuth | null>(null);
+
+  const updateAuth = async (auth: IAuth | null) => {
+    if (!auth) {
+      localStorage.removeItem(LOCAL_STORAGE_AUTH_KEY);
     } else {
-      localStorage.removeItem("token");
+      try {
+        localStorage.setItem(LOCAL_STORAGE_AUTH_KEY, JSON.stringify(auth));
+      } catch (error) {
+        localStorage.removeItem(LOCAL_STORAGE_AUTH_KEY);
+      }
+    }
+
+    setAuth(auth);
+  };
+
+  const fetchAuthData = async () => {
+    try {
+      const authStr = localStorage.getItem(LOCAL_STORAGE_AUTH_KEY);
+
+      if (!authStr) {
+        updateAuth(null);
+        return;
+      }
+
+      try {
+        const value: IAuth = JSON.parse(authStr);
+
+        if (value) {
+          updateAuth(value);
+        } else {
+          updateAuth(null);
+        }
+      } catch (err) {
+        console.error(err);
+        updateAuth(null);
+      }
+    } catch (err) {
+      console.error(err);
+      updateAuth(null);
     }
   };
 
+  useEffect(() => {
+    fetchAuthData();
+  }, []);
+
   return (
-    <AuthContext.Provider value={{ token, updateAuth }}>
+    <AuthContext.Provider
+      value={{
+        auth,
+        updateAuth,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
 };
 
-export const useAuth = () => {
-  const context = useContext(AuthContext);
-  if (context === undefined) {
-    throw new Error("useAuth must be used within an AuthProvider");
-  }
-  return context;
-};
+export const useAuth = () => useContext(AuthContext);
