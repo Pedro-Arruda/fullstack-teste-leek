@@ -1,13 +1,13 @@
 "use client";
 import { Check, X } from "lucide-react";
 import { useEffect } from "react";
-import { FieldsTask, Task } from "../types/task";
-import { Button } from "./button";
-import Input from "./input";
-import Label from "./label";
-import { Modal } from "./modal";
-import Select from "./select";
-import TextArea from "./textarea";
+import { Button } from "../../components/button";
+import Input from "../../components/input";
+import Label from "../../components/label";
+import { Modal } from "../../components/modal";
+import Select from "../../components/select";
+import TextArea from "../../components/textarea";
+import { FieldsTask, Task } from "../../types/task";
 
 interface IModalEditTask {
   fields: FieldsTask;

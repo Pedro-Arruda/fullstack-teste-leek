@@ -1,12 +1,12 @@
 import { Check, X } from "lucide-react";
 import React from "react";
-import { FieldsTask } from "../home/types";
-import { Button } from "./button";
-import Input from "./input";
-import Label from "./label";
-import { Modal } from "./modal";
-import Select from "./select";
-import Textarea from "./textarea";
+import { Button } from "../../components/button";
+import Input from "../../components/input";
+import Label from "../../components/label";
+import { Modal } from "../../components/modal";
+import Select from "../../components/select";
+import Textarea from "../../components/textarea";
+import { FieldsTask } from "../../types/task";
 
 interface IModalAddTask {
   fields: FieldsTask;

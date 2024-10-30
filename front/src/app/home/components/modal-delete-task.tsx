@@ -1,5 +1,5 @@
-import { Button } from "./button";
-import { Modal } from "./modal";
+import { Button } from "../../components/button";
+import { Modal } from "../../components/modal";
 
 interface IModalDeleteTask {
   setIsOpenModal: (isOpen: boolean) => void;

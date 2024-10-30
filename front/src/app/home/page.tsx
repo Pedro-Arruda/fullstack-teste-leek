@@ -1,17 +1,27 @@
 "use client";
 import { createTask } from "@/api/tasks/createTask";
+import { deleteTask } from "@/api/tasks/deleteTask";
+import { listTasks } from "@/api/tasks/listTasks";
+import { updateTask } from "@/api/tasks/updateTask";
 import { Plus } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Button } from "../components/button";
-import { ModalAddTask } from "../components/modal-add-task";
-import { ModalDeleteTask } from "../components/modal-delete-task";
-import { ModalEditTask } from "../components/modal-edit-task";
 import { useAuth } from "../context/AuthContext";
 import { Task } from "../types/task";
+import { ModalAddTask } from "./components/modal-add-task";
+import { ModalDeleteTask } from "./components/modal-delete-task";
+import { ModalEditTask } from "./components/modal-edit-task";
 import { TableTasks } from "./components/table-tasks";
 
 const Home = () => {
   const { auth } = useAuth();
+
+  const getInitialFields = () => ({
+    title: "",
+    description: "",
+    status: "pendente",
+    finishedAt: "",
+  });
 
   const [isOpenAddModal, setIsOpenAddModal] = useState(false);
   const [isOpenEditModal, setIsOpenEditModal] = useState(false);
@@ -20,91 +30,37 @@ const Home = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
 
-  const [fields, setFields] = useState({
-    title: "",
-    description: "",
-    status: "pendente",
-    finishedAt: "",
-  });
+  const [fields, setFields] = useState(getInitialFields);
 
   const fetchTasks = async () => {
-    try {
-      const response = await fetch("http://localhost:3333/task", {
-        headers: {
-          Authorization: `Bearer ${auth}`,
-        },
-      });
-      const data = await response.json();
-      setTasks(data);
-    } catch (error) {
-      console.error("Erro ao buscar tarefas:", error);
-    }
+    const data = await listTasks(auth?.token);
+    setTasks(data);
   };
 
   useEffect(() => {
-    if (auth) {
-      fetchTasks();
-    }
+    if (auth) fetchTasks();
   }, [auth]);
 
   const handleSubmit = async () => {
     await createTask(fields, auth?.token);
 
     setIsOpenAddModal(false);
-    setFields({
-      title: "",
-      description: "",
-      status: "pendente",
-      finishedAt: new Date().toISOString().substring(10),
-    });
+    setFields(getInitialFields);
     fetchTasks();
   };
 
   const handleEdit = async () => {
-    const { description, finishedAt, status, title } = fields;
-    try {
-      await fetch(`http://localhost:3333/task/${selectedTask?.id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${auth}`,
-        },
-        body: JSON.stringify({
-          description,
-          finishedAt: new Date(finishedAt).toISOString(),
-          status,
-          title,
-        }),
-      });
+    await updateTask(fields, auth?.token, selectedTask?.id);
 
-      setIsOpenEditModal(false);
-      setFields({
-        title: "",
-        description: "",
-        status: "pendente",
-        finishedAt: new Date().toISOString().substring(10),
-      });
-      fetchTasks();
-    } catch (error) {
-      console.error("Erro na requisição:", error);
-    }
+    setIsOpenEditModal(false);
+    setFields(getInitialFields);
+    fetchTasks();
   };
 
   const handleDelete = async () => {
+    await deleteTask(auth?.token, selectedTask?.id);
     setIsOpenDeleteModal(false);
-    try {
-      await fetch(`http://localhost:3333/task/${selectedTask?.id}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${auth}`,
-        },
-      });
-
-      fetchTasks();
-    } catch (error) {
-      console.error("Erro na requisição:", error);
-    }
+    fetchTasks();
   };
 
   return (
