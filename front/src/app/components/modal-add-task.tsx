@@ -68,8 +68,8 @@ export const ModalAddTask: React.FC<IModalAddTask> = ({
             onChange={(e) => setFields({ ...fields, status: e.target.value })}
             options={[
               { label: "Pendente", value: "pendente" },
-              { label: "concluida", value: "Concluída" },
-              { label: "em_progresso", value: "Em Progresso" },
+              { label: "Concluída", value: "concluida" },
+              { label: "Em Progresso", value: "em_progresso" },
             ]}
           ></Select>
 
