@@ -6,10 +6,10 @@ export const infoToast = (
   options?: ToastOptions
 ) =>
   toast.info(
-    <>
+    <div>
       <p>{message}</p>
       {description && <span>{description}</span>}
-    </>,
+    </div>,
     {
       position: "bottom-right",
       theme: "colored",
@@ -28,10 +28,10 @@ export const successToast = (
   options?: ToastOptions
 ) =>
   toast.success(
-    <>
+    <div>
       <p>{message}</p>
       {description && <span>{description}</span>}
-    </>,
+    </div>,
     {
       position: "bottom-right",
       theme: "dark",
@@ -53,10 +53,10 @@ export const warnToast = (
   options?: ToastOptions
 ) =>
   toast.warning(
-    <>
+    <div>
       <p>{message}</p>
       {description && <span>{description}</span>}
-    </>,
+    </div>,
     {
       position: "bottom-right",
       theme: "colored",
@@ -76,10 +76,10 @@ export const errorToast = (
   options?: ToastOptions
 ) =>
   toast.error(
-    <>
+    <div>
       <p>{message}</p>
       {description && <span>{description}</span>}
-    </>,
+    </div>,
     {
       position: "bottom-right",
       theme: "dark",

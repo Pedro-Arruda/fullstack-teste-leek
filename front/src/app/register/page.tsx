@@ -6,6 +6,8 @@ import Input from "../components/input";
 import Label from "../components/label";
 import { successToast } from "../components/toast";
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
 const Register = () => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
@@ -20,7 +22,7 @@ const Register = () => {
     setError(null);
 
     try {
-      const response = await fetch("http://localhost:3333/sign-up", {
+      const response = await fetch(`${apiUrl}/sign-up`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

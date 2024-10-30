@@ -8,6 +8,8 @@ import Label from "./components/label";
 import { errorToast, successToast } from "./components/toast";
 import { useAuth } from "./context/AuthContext";
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
 const Login = () => {
   const { updateAuth } = useAuth();
   const router = useRouter();
@@ -20,7 +22,7 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const response = await fetch("http://localhost:3333/sign-in", {
+      const response = await fetch(`${apiUrl}/sign-in`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

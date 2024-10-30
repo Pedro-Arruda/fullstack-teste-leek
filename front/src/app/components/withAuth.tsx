@@ -4,14 +4,15 @@ import { useAuth } from "../context/AuthContext";
 
 function withAuth<P>(Component: ComponentType) {
   const AuthenticatedComponent = (props: any) => {
-    const { auth } = useAuth();
+    const { auth, isLoading } = useAuth();
 
     useEffect(() => {
-      if (!auth) {
+      if (!isLoading && !auth) {
         redirect("/");
       }
-    }, [auth]);
+    }, [auth, isLoading]);
 
+    if (isLoading) return null;
     if (!auth) return null;
 
     return <Component {...props} />;
