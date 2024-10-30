@@ -50,13 +50,13 @@ const Login = () => {
           className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
         >
           <Image
-            className="w-8 h-8 mr-2"
-            src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg"
+            className="mr-2"
+            src="https://static.wixstatic.com/media/fb4fd8_c7622301876c41549507f67e8d981487~mv2.png/v1/fill/w_122,h_67,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/LOGO%20LEEK%20OFICIAL.png"
             alt="logo"
-            width={300}
-            height={300}
+            width={122}
+            height={67}
           />
-          Leek Soluções
+          {/* Leek Soluções */}
         </a>
         <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
